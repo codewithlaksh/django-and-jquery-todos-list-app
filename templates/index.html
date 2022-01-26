@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block css %}<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.css">{% endblock css %}
+
+{% block body %}
+	<div class="container-fluid my-3">
+		<div class="row">
+			<div class="col-md-9 m-auto d-block">
+				<h4>Add Your todo</h4>
+				<p id="msg"></p>
+				<form id="todoForm">
+					<input type="hidden" id="snoEdit" value="">
+					<textarea class="form-control mb-3" id="desc" rows="3" placeholder="todo Description"></textarea>
+					<button class="btn btn-sm btn-outline-secondary" type="button" id="submitBtn">Submit</button>
+				</form>
+				<hr>
+				<h4>Your Todos</h4>
+				<table class="table table-striped" id="todosTable">
+					<thead>
+						<tr>
+							<th>Sno</th>
+							<th>todo</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						{% for todo in todos %}
+						<tr>
+							<td>{{ todo.sno }}</td>
+							<td>{{ todo.description }}</td>
+							<td>
+								<button class="edit btn btn-sm btn-secondary" id="{{ todo.sno }}">Edit</button>
+								<button class="delete btn btn-sm btn-secondary" id="{{ todo.sno }}">Delete</button>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock body %}
+
+{% block js %}
+	<script type="text/javascript" src="{% static 'script.js' %}"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('#todosTable').DataTable();
+		});
+	</script>
+{% endblock js %}
